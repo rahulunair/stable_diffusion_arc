@@ -17,6 +17,33 @@ I tried it today, it worked beautifully.
 - Add user to `render` group
 - Install oneAPI 2022.3 (latest as of this writeup)
 
+The version of the usermod drivers that I have tested with are:
+
+```bash
+intel-level-zero-gpu  (1.3.23937+i449~u22.04).
+intel-media-va-driver-non-free  (22.5.1+i449~u22.04).
+intel-opencl-icd  (22.32.23937+i449~u22.04).
+level-zero  (1.8.5+i449~u22.04).
+libegl-mesa0  (22.2.0.20220729.1.2+2046).
+libegl1-mesa  (22.2.0.20220729.1.2+2046).
+libegl1-mesa-dev  (22.2.0.20220729.1.2+2046).
+libgbm1  (22.2.0.20220729.1.2+2046).
+libgl1-mesa-dev  (22.2.0.20220729.1.2+2046).
+libgl1-mesa-dri  (22.2.0.20220729.1.2+2046).
+libglapi-mesa  (22.2.0.20220729.1.2+2046).
+libgles2-mesa-dev  (22.2.0.20220729.1.2+2046).
+libglx-mesa0  (22.2.0.20220729.1.2+2046).
+libigdgmm12  (22.1.7+i449~u22.04).
+libmfx1  (22.5.1+i449~u22.04).
+libmfxgen1  (22.5.1+i449~u22.04).
+libvpl2  (2022.1.6.0+i449~u22.04).
+libxatracker2  (22.2.0.20220729.1.2+2046).
+mesa-va-drivers  (22.2.0.20220729.1.2+2046).
+mesa-vdpau-drivers  (22.2.0.20220729.1.2+2046).
+mesa-vulkan-drivers  (22.2.0.20220729.1.2+2046).
+va-driver-all  (2.15.0.2-36).
+```
+
 ## Stable Diffusion
 
 Stable Diffusion is a fully open-source (thank you Stability.ai) deep learning text to image and image to image model. For more information on the model,
