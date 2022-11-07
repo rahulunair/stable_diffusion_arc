@@ -1,6 +1,6 @@
 # coding: utf-8
-import keras_cv
 import intel_extension_for_tensorflow as itex
+import keras_cv
 import tensorflow as tf
 from tensorflow import keras
 
