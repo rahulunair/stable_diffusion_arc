@@ -7,7 +7,7 @@ Arc discrete GPU setup on Linux, let's try to run Stable Diffusion model using i
 ## A quick recap / updated steps to set up Arc on Linux
 
 Intel has now published [documentation](https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-arc.html) on how to set up Arc on Linux. 
-I tried it today, it worked beautifully.
+I tried it today and it works beautifully.
 
 ### Steps to configure Arc
 
