@@ -130,7 +130,7 @@ Executing this, we get the result:
   0   1: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:29<00:00,  1.67it/s]
 ```
 
-![](.images/sd_tf_fp32.png)
+![](./images/sd_tf_fp32.png)
 
 As you can see the first time you run the model, it takes about 60 seconds, subsequent runs take about 30 seconds. One thing to note here is that, for the TensorFlow version we used FP32 and not FP16 as in the case of pyTorch.
 So a rough back of the envelope calculation suggests that the TF model is slightly faster than the pyTorch one.
