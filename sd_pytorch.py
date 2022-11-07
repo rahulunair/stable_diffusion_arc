@@ -26,7 +26,7 @@ keywords = [
     "detailed",
     "trending in artstation fantasy",
     "electric",
-    "night"
+    "night",
 ]
 # https://www.poetryfoundation.org/poems/46565/ozymandias
 prompts = [

@@ -1,4 +1,3 @@
-
 import os
 
 import intel_extension_for_tensorflow as itex
@@ -12,7 +11,9 @@ def set_backend(backend="GPU", mixed=False):
     if mixed:
         auto_mixed_precision_options = itex.AutoMixedPrecisionOptions()
         auto_mixed_precision_options.data_type = itex.FLOAT16
-        graph_options = itex.GraphOptions(auto_mixed_precision_options=auto_mixed_precision_options)
+        graph_options = itex.GraphOptions(
+            auto_mixed_precision_options=auto_mixed_precision_options
+        )
         graph_options.auto_mixed_precision = itex.ON
         config = itex.ConfigProto(graph_options=graph_options)
         itex.set_backend(backend, config)
