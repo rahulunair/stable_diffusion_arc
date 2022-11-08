@@ -64,8 +64,6 @@ for [pyTorch](https://github.com/intel/intel-extension-for-pytorch/releases/down
 ~ → pip install ~/Downloads/*.whl
 ```
 
-Let's see how to run the model using PyTorch first,
-
 2. Install diffusers library and dependencies
 
 
@@ -112,7 +110,22 @@ As you can see the first time you run the model, it takes about 35 seconds, subs
 
 ### TensorFlow
 
-Moving on to TensorFlow, we have this awesome repo from [divamgupta](https://github.com/divamgupta/stable-diffusion-tensorflow)
+
+Moving on to TensorFlow, we have this awesome repo from [divamgupta](https://github.com/divamgupta/stable-diffusion-tensorflow):
+
+1. Create a conda environment with Python 3.9 and install tensorflow and intel_extension_for_tensorflow wheels.
+
+```bash
+~ → conda create -n itex python=3.9 -y
+```
+
+```bash
+~ → conda activate itex
+~ → pip install tensorflow==2.10.0
+~ → pip install --upgrade intel-extension-for-tensorflow[gpu]
+```
+
+Let's see how to run the model using PyTorch first,
 
 2. Install stable_diffusion_tensorflow package and dependencies
 
