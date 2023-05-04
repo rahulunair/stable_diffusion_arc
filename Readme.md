@@ -1,5 +1,8 @@
 ## Stable Diffusion inference on Intel Arc GPUs
 
+**Update**: If you want to benchmark stable diffusion on your Intel dGPU and get the best performance, checkout my new repo: https://github.com/rahulunair/stable_diffusion_xpu.
+
+
 [Now](https://blog.rahul.onl/posts/2022-08-12-arc-dgpu-linux.html) that we have our
 Arc discrete GPU setup on Linux, let's try to run Stable Diffusion model using it. The gpu we are using is an Arc A770 16 GB card.
 
