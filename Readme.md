@@ -1,4 +1,4 @@
-## Stable Diffusion inference on Intel Arc GPUs
+## Stable Diffusion inference on Intel Arc and Data Center GPUs 
 
 **Update**: If you want to benchmark stable diffusion on your Intel dGPUs and CPUs, checkout my new repo: https://github.com/rahulunair/stable_diffusion_xpu.
 
