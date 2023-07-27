@@ -6,9 +6,9 @@
 [Now](https://blog.rahul.onl/posts/2022-08-12-arc-dgpu-linux.html) that we have our Arc discrete GPU setup on Linux, let's try to run Stable Diffusion model using it. The gpu we are using is an Arc A770 16 GB card.
 
 
-## A quick recap / updated steps to set up Arc on Linux
+## A quick recap / updated steps to set up Arc (Intel dGPUs) on Linux
 
-Intel has now published [documentation](https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-arc.html) on how to set up Arc on Linux. 
+Please follow the [documentation](https://dgpu-docs.intel.com/driver/installation.html) on how to set up Intel dGPUs on Linux. After setting up your environment you can verify if everything works by running the python xpu_test.py script from the [xpu_verify](htttps://github.com/rahulunair/xpu_verify) repository.
 
 
 ## Stable Diffusion
