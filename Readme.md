@@ -1,5 +1,8 @@
 ## Stable Diffusion inference on Intel Arc and Data Center GPUs 
 
+<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/93824391-eaf9-4e5d-a3de-ea6c813cf255" width="400">|<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/f010e3f8-6f8d-4e9f-9d1f-178d3571e7b9" width="400">|
+
+
 **Update**: If you want to benchmark stable diffusion on your Intel dGPUs and CPUs, checkout my other [repo](https://github.com/rahulunair/stable_diffusion_xpu) .
 
 [Now](https://blog.rahul.onl/posts/2022-08-12-arc-dgpu-linux.html) that we have our Arc discrete GPU setup on Linux, let's try to run Stable Diffusion model using it. The gpu we are using is an Arc A770 16 GB card.
@@ -83,7 +86,6 @@ Executing this, we get the result:
 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:03<00:00, 12.70it/s]
 ```
 
-![](./images/sd_pyt_fp16.png)
 
 As you can see the first time you run the model, it takes about 35 seconds, subsequent runs take about 10 seconds, you can expect this number to double when using fp32. 
 
