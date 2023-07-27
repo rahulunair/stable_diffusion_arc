@@ -1,51 +1,15 @@
 ## Stable Diffusion inference on Intel Arc GPUs
 
-**Update**: If you want to benchmark stable diffusion on your Intel dGPU and get the best performance, checkout my new repo: https://github.com/rahulunair/stable_diffusion_xpu.
+**Update**: If you want to benchmark stable diffusion on your Intel dGPUs and CPUs, checkout my new repo: https://github.com/rahulunair/stable_diffusion_xpu.
 
 
-[Now](https://blog.rahul.onl/posts/2022-08-12-arc-dgpu-linux.html) that we have our
-Arc discrete GPU setup on Linux, let's try to run Stable Diffusion model using it. The gpu we are using is an Arc A770 16 GB card.
+[Now](https://blog.rahul.onl/posts/2022-08-12-arc-dgpu-linux.html) that we have our Arc discrete GPU setup on Linux, let's try to run Stable Diffusion model using it. The gpu we are using is an Arc A770 16 GB card.
 
 
 ## A quick recap / updated steps to set up Arc on Linux
 
 Intel has now published [documentation](https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-arc.html) on how to set up Arc on Linux. 
-I tried it today and it works beautifully.
 
-### Steps to configure Arc
-
-- Install the 5.7 OEM kernel
-- Install kernel mode drivers, gpu firmware
-- Install usermod drivers for compute, 3d graphics and media
-- Add user to `render` group
-- Install oneAPI 2022.3 (latest as of this writeup)
-
-The version of the usermod drivers that I have tested with are:
-
-```bash
-intel-level-zero-gpu  (1.3.23937+i449~u22.04).
-intel-media-va-driver-non-free  (22.5.1+i449~u22.04).
-intel-opencl-icd  (22.32.23937+i449~u22.04).
-level-zero  (1.8.5+i449~u22.04).
-libegl-mesa0  (22.2.0.20220729.1.2+2046).
-libegl1-mesa  (22.2.0.20220729.1.2+2046).
-libegl1-mesa-dev  (22.2.0.20220729.1.2+2046).
-libgbm1  (22.2.0.20220729.1.2+2046).
-libgl1-mesa-dev  (22.2.0.20220729.1.2+2046).
-libgl1-mesa-dri  (22.2.0.20220729.1.2+2046).
-libglapi-mesa  (22.2.0.20220729.1.2+2046).
-libgles2-mesa-dev  (22.2.0.20220729.1.2+2046).
-libglx-mesa0  (22.2.0.20220729.1.2+2046).
-libigdgmm12  (22.1.7+i449~u22.04).
-libmfx1  (22.5.1+i449~u22.04).
-libmfxgen1  (22.5.1+i449~u22.04).
-libvpl2  (2022.1.6.0+i449~u22.04).
-libxatracker2  (22.2.0.20220729.1.2+2046).
-mesa-va-drivers  (22.2.0.20220729.1.2+2046).
-mesa-vdpau-drivers  (22.2.0.20220729.1.2+2046).
-mesa-vulkan-drivers  (22.2.0.20220729.1.2+2046).
-va-driver-all  (2.15.0.2-36).
-```
 
 ## Stable Diffusion
 
@@ -54,8 +18,7 @@ checkout the wikipedia [entry](https://en.wikipedia.org/wiki/Stable_Diffusion) f
 
 ### PyTorch
 
-To use PyTorch on Intel GPUs, we need to install, the Intel extensions for PyTorch or [ipex](https://github.com/intel/intel-extension-for-pytorch). Let's get the latest release
-for [pyTorch](https://github.com/intel/intel-extension-for-pytorch/releases/download/v1.10.200%2Bgpu/torch-1.10.0a0+git3d5f2d4-cp39-cp39-linux_x86_64.whl) and [ipex](https://github.com/intel/intel-extension-for-pytorch/releases/download/v1.10.200%2Bgpu/intel_extension_for_pytorch-1.10.200+gpu-cp39-cp39-linux_x86_64.whl).
+To use PyTorch on Intel GPUs (xpus), we need to install, the Intel extensions for PyTorch or [ipex](https://github.com/intel/intel-extension-for-pytorch).
 
 1. Create a conda environment with Python 3.9 and install both of the wheels.
 
@@ -64,21 +27,39 @@ for [pyTorch](https://github.com/intel/intel-extension-for-pytorch/releases/down
 ```
 ```bash
 ~ → conda activate ipex
-~ → pip install ~/Downloads/*.whl
+~ → python -m pip install torch==1.13.0a0+git6c9b55e intel_extension_for_pytorch==1.13.120+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
 ```
 
 2. Install diffusers library and dependencies
 
 
 ```bash
-~ → pip install diffusers ftfy transformers Pillow
+~ → pip install invisible_watermark transformers accelerate safetensors
+~ →  pip install diffusers --upgrade
+
 ```
 
 3. Run stable diffusion
 
-We will use a model from 🤗 maintained by runwayml, `runwayml/stable-diffusion-v1-5`. To use the model, you will have to [generate](https://huggingface.co/docs/hub/security-tokens) a User access token for the 🤗 model hub.
-Once generated we can easily download the model using diffusers API. Now that we have installed all the required packages and have the user token, lets try it out:
+It is as simple as:
 
+```bash
+python sd_pytorch.py
+```
+
+### Supported Models:
+
+```bash
+1. CompVis/stable-diffusion-v1-4
+2. stabilityai/stable-diffusion-2-1
+3. stabilityai/stable-diffusion-xl-base-1.0
+```
+
+### Gist on how to run on intel xpus 
+
+### PyTorch
+
+For the optimized version use `sd_pytorch.py`, but just to get an over all idea of what we are doing, here is the pytorch and tensorflow version:
 
 ```python
 import intel_extension_for_pytorch
@@ -99,20 +80,15 @@ image.save(f"{prompt[:5]}.png")
 
 Executing this, we get the result:
 
-```python
-In [8]: image = pipe(prompt).images[0]
-   ...: 
-100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 51/51 [00:35<00:00,  1.43it/s]
-In [9]: image = pipe(prompt).images[0]
-100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 51/51 [00:09<00:00,  5.20it/s]
+```bash
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:03<00:00, 12.70it/s]
 ```
 
 ![](./images/sd_pyt_fp16.png)
 
 As you can see the first time you run the model, it takes about 35 seconds, subsequent runs take about 10 seconds, you can expect this number to double when using fp32. 
 
-### TensorFlow
-
+#### TensorFlow
 
 Moving on to TensorFlow, we have this awesome repo from [divamgupta](https://github.com/divamgupta/stable-diffusion-tensorflow):
 
@@ -163,20 +139,3 @@ img = generator.generate(
 )
 Image.fromarray(img[0]).save("sd_tf_fp32.png")
 ```
-
-Executing this, we get the result:
-
-```python
-2022-11-06 23:00:51.948547: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type XPU is enabled.
-  0   1: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [01:00<00:00,  1.21s/it]
-2022-11-06 23:01:55.103111: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type XPU is enabled.
-  0   1: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:29<00:00,  1.67it/s]
-```
-
-![](./images/sd_tf_fp32.png)
-
-As you can see the first time you run the model, it takes about 60 seconds, subsequent runs take about 30 seconds. One thing to note here is that, for the TensorFlow version we used FP32 and not FP16 as in the case of pyTorch.
-
-
-
-
