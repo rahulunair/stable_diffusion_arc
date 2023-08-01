@@ -1,4 +1,8 @@
-## Stable Diffusion inference on Intel Arc and Data Center GPUs 
+## Stable Diffusion inference on Intel Arc and Data Center GPUs
+
+
+
+<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/36e194b1-8a17-47c7-89c3-995d989fae3f" width="400">
 
 <img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/93824391-eaf9-4e5d-a3de-ea6c813cf255" width="400">|<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/f010e3f8-6f8d-4e9f-9d1f-178d3571e7b9" width="400">|
 
