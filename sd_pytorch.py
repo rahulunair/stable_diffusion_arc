@@ -2,6 +2,7 @@
 
 import os
 import random
+import time
 import warnings
 
 # Suppress warnings for a cleaner output.
@@ -33,8 +34,9 @@ class Text2ImgModel:
         self,
         model_id_or_path: str,
         device: str = "xpu",
-        torch_dtype: torch.dtype = torch.float16,
+        torch_dtype: torch.dtype = torch.bfloat16,
         optimize: bool = True,
+        enable_scheduler: bool = False,
     ) -> None:
         """
         The initializer for Text2ImgModel class.
@@ -47,7 +49,9 @@ class Text2ImgModel:
         """
 
         self.device = device
-        self.pipeline = self._load_pipeline(model_id_or_path, torch_dtype)
+        self.pipeline = self._load_pipeline(
+            model_id_or_path, torch_dtype, enable_scheduler
+        )
         self.data_type = torch_dtype
         if optimize:
             start_time = time.time()
@@ -60,7 +64,10 @@ class Text2ImgModel:
             )
 
     def _load_pipeline(
-        self, model_id_or_path: str, torch_dtype: torch.dtype
+        self,
+        model_id_or_path: str,
+        torch_dtype: torch.dtype,
+        enable_scheduler: bool = True,
     ) -> DiffusionPipeline:
         """
         Loads the pretrained model and prepares it for inference.
@@ -80,9 +87,10 @@ class Text2ImgModel:
             use_safetensors=True,
             variant="fp16",
         )
-        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(
-            pipeline.scheduler.config
-        )
+        if enable_scheduler:
+            pipeline.scheduler = DPMSolverMultistepScheduler.from_config(
+                pipeline.scheduler.config
+            )
         pipeline = pipeline.to(self.device)
         print("Model loaded.")
         return pipeline
@@ -111,6 +119,23 @@ class Text2ImgModel:
                 )
         return pipeline
 
+    def warmup_model(self):
+        """
+        Warms up the model by generating a sample image.
+        """
+        print("Setting up model...")
+        start_time = time.time()
+        self.generate_images(
+            prompt="A beautiful sunset over the mountains",
+            num_images=1,
+            save_path="/tmp",
+        )
+        print(
+            "Model is set up and ready! Warm-up completed in {:.2f} seconds.".format(
+                time.time() - start_time
+            )
+        )
+
     def optimize_pipeline(self) -> None:
         """
         Optimizes the current model pipeline.
@@ -121,7 +146,6 @@ class Text2ImgModel:
     def generate_images(
         self,
         prompt: str,
-        negative_prompt: str = "",
         num_inference_steps: int = 50,
         num_images: int = 5,
         save_path: str = "output",
@@ -131,7 +155,6 @@ class Text2ImgModel:
 
         Parameters:
         - prompt: The text prompt to generate images from.
-        - negative_prompt: The prompt not to guide the image generation.
         - num_inference_steps: Number of noise removal steps.
         - num_images: The number of images to generate. Default is 5.
         - save_path: The directory to save the generated images in. Default is "output".
@@ -142,14 +165,27 @@ class Text2ImgModel:
 
         images = []
         for i in range(num_images):
-            with torch.xpu.amp.autocast(enabled=True, dtype=self.data_type):
-                image = self.pipeline(prompt=prompt, num_inference_steps=num_inference_steps, negative_prompt=negative_prompt).images[0]
-                output_image_path = os.path.join(
-                    save_path,
-                    f"{'_'.join(prompt.split()[:3])}_{i}.png",
-                )
-                image.save(output_image_path)
-                images.append(image)
+            with torch.xpu.amp.autocast(
+                enabled=True if self.data_type != torch.float32 else False,
+                dtype=self.data_type,
+            ):
+                image = self.pipeline(
+                    prompt=prompt,
+                    num_inference_steps=num_inference_steps,
+                    #negative_prompt=negative_prompt,
+                ).images[0]
+                if not os.path.exists(save_path):
+                    try:
+                        os.makedirs(save_path)
+                    except OSError as e:
+                        print("Failed to create directory", save_path, "due to", str(e))
+                        raise
+            output_image_path = os.path.join(
+                save_path,
+                f"{'_'.join(prompt.split()[:3])}_{i}.png",
+            )
+            image.save(output_image_path)
+            images.append(image)
         return images
 
 
@@ -177,9 +213,17 @@ if __name__ == "__main__":
         if 0 <= selected_model_index < len(model_ids)
         else model_ids[0]
     )
-
+    model = Text2ImgModel(model_id, device="xpu")
+    #model.warmup_model()
     prompt = input("Please enter your prompt: ")
-    num_images = int(input("How many images have to be generated: "))
+    num_images = 0
+    try:
+        num_images = int(input("How many images have to be generated: "))
+    except Exception:
+        num_images = 0
+    if num_images <= 0:
+        num_images = 1
+
     enhancements = [
         "dark",
         "purple light",
@@ -204,7 +248,6 @@ if __name__ == "__main__":
 
     prompt = prompt + " " + " ".join(random.sample(enhancements, 5))
     print(f"Using enhanced prompt: {prompt}")
-    model = Text2ImgModel(model_id, device="xpu")
 
     try:
         start_time = time.time()
