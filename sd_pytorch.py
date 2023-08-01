@@ -57,6 +57,7 @@ class Text2ImgModel:
             start_time = time.time()
             print("Optimizing the model...")
             self.optimize_pipeline()
+            self.warmup_model()
             print(
                 "Optimization completed in {:.2f} seconds.".format(
                     time.time() - start_time
@@ -67,7 +68,7 @@ class Text2ImgModel:
         self,
         model_id_or_path: str,
         torch_dtype: torch.dtype,
-        enable_scheduler: bool = True,
+        enable_scheduler: bool
     ) -> DiffusionPipeline:
         """
         Loads the pretrained model and prepares it for inference.
@@ -214,7 +215,6 @@ if __name__ == "__main__":
         else model_ids[0]
     )
     model = Text2ImgModel(model_id, device="xpu")
-    #model.warmup_model()
     prompt = input("Please enter your prompt: ")
     num_images = 0
     try:
