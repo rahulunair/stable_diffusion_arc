@@ -1,11 +1,8 @@
 ## Stable Diffusion inference on Intel Arc and Data Center GPUs
 
-
-
-<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/36e194b1-8a17-47c7-89c3-995d989fae3f" width="400">
-
-<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/93824391-eaf9-4e5d-a3de-ea6c813cf255" width="400">|<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/f010e3f8-6f8d-4e9f-9d1f-178d3571e7b9" width="400">|
-
+<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/36e194b1-8a17-47c7-89c3-995d989fae3f" width="400">|<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/54621a2d-6306-4c30-b375-c8771de66ce4" width="400">
+<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/93824391-eaf9-4e5d-a3de-ea6c813cf255" width="400">|<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/f010e3f8-6f8d-4e9f-9d1f-178d3571e7b9" width="400">
+<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/b0a4a7a9-85c9-4480-98ae-12b06bdf37d5" width="400">|<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/99e2e01f-1d45-4924-8900-c14435bed385" width="400">
 
 **Update**: If you want to benchmark stable diffusion on your Intel dGPUs and CPUs, checkout my other [repo](https://github.com/rahulunair/stable_diffusion_xpu) .
 
