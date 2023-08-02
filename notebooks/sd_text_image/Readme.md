@@ -7,11 +7,16 @@
 - [Client-Server Code](./sd_client_server.ipynb): To run the client-server code, first open a Jupyter notebook. Then, from the notebook interface, open a terminal window and switch to the `diffusion_xpu` conda environment. Run the server by entering the following command:
 
 ```bash
+# set up conda env and install required pkgs.
+
 #  conda create -n diffusion_xpu python=3.10 -y
+# conda activate diffusion_xpu
+
 # python -m pip install torch==1.13.0a0+git6c9b55e intel_extension_for_pytorch==1.13.120+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
 # pip install flask
 #  pip install invisible_watermark transformers accelerate safetensors
 # pip install diffusers --upgrade
+
 python server.py
 ```
 
