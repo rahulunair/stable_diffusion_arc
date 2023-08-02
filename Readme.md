@@ -16,6 +16,8 @@ Please follow the [documentation](https://dgpu-docs.intel.com/driver/installatio
 
 ## Stable Diffusion
 
+### Text-to-Image Model Using Stable Diffusion
+
 Stable Diffusion is a fully open-source (thank you Stability.ai) deep learning text to image and image to image model. For more information on the model,
 checkout the wikipedia [entry](https://en.wikipedia.org/wiki/Stable_Diffusion) for the same.
 
@@ -44,11 +46,30 @@ To use PyTorch on Intel GPUs (xpus), we need to install, the Intel extensions fo
 
 3. Run stable diffusion
 
-It is as simple as:
+#### Monolithic version
+
+The monolithic implementation can be found in the `sd_text_to_img.py` file. This version contains all necessary components, including model definition, loading, optimization, and inference code, in a single script. 
+You can run the script from the command line as follows:
 
 ```bash
-python sd_pytorch.py
+python sd_text_to_img.py
 ```
+
+#### Client-server version
+
+The client-server implementation splits the functionality into two separate scripts: sd_server.py for the server and sd_client.py for the client.
+
+To use this version, first start the server by running:
+
+```bash
+python sd_server.py
+```
+
+```bash
+python sd_client.py
+```
+
+Both versions offer the same functionality from a user's perspective. The monolithic version may be simpler to set up and run, as it doesn't require running two separate scripts. However, the client-server version could offer better performance for large-scale tasks, as it allows the server to handle multiple requests simultaneously.
 
 ### Supported Models:
 
@@ -57,6 +78,8 @@ python sd_pytorch.py
 2. stabilityai/stable-diffusion-2-1
 3. stabilityai/stable-diffusion-xl-base-1.0
 ```
+
+This repository contains two versions of a text-to-image model using Stable Diffusion: a monolithic implementation and a client-server implementation. Both versions offer a similar user interface, allowing you to choose the version that best suits your needs. 
 
 ### Gist on how to run on intel xpus 
 

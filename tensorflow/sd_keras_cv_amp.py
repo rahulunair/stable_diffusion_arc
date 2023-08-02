@@ -19,4 +19,3 @@ for _ in range(2):
     images = model.text_to_image(
         "photograph of an astronaut riding a horse", batch_size=1
     )
-

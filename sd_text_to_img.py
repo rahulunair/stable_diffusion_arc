@@ -65,10 +65,7 @@ class Text2ImgModel:
             )
 
     def _load_pipeline(
-        self,
-        model_id_or_path: str,
-        torch_dtype: torch.dtype,
-        enable_scheduler: bool
+        self, model_id_or_path: str, torch_dtype: torch.dtype, enable_scheduler: bool
     ) -> DiffusionPipeline:
         """
         Loads the pretrained model and prepares it for inference.
@@ -173,7 +170,7 @@ class Text2ImgModel:
                 image = self.pipeline(
                     prompt=prompt,
                     num_inference_steps=num_inference_steps,
-                    #negative_prompt=negative_prompt,
+                    # negative_prompt=negative_prompt,
                 ).images[0]
                 if not os.path.exists(save_path):
                     try:
