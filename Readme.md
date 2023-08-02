@@ -59,6 +59,12 @@ python sd_text_to_img.py
 
 The client-server implementation splits the functionality into two separate scripts: sd_server.py for the server and sd_client.py for the client.
 
+We have two additional requirements for this version:
+
+```bash
+pip install flask requests
+```
+
 To use this version, first start the server by running:
 
 ```bash
