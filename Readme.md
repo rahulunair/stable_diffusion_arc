@@ -64,6 +64,7 @@ To use this version, first start the server by running:
 ```bash
 python sd_server.py
 ```
+Then, in a separate terminal window, run the client script:
 
 ```bash
 python sd_client.py
