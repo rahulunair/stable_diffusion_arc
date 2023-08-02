@@ -4,6 +4,9 @@
 <img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/93824391-eaf9-4e5d-a3de-ea6c813cf255" width="400">|<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/f010e3f8-6f8d-4e9f-9d1f-178d3571e7b9" width="400">
 <img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/b0a4a7a9-85c9-4480-98ae-12b06bdf37d5" text="A high-resolution, brightly colored, happy character from Studio Jibali  dreaming painting exquisite 4k detailed" width="400">|<img src="https://github.com/rahulunair/stable_diffusion_arc/assets/786476/99e2e01f-1d45-4924-8900-c14435bed385" width="400" text="A high resolution cartoon character with super powers night exquisite electric historical art">
 
+
+The default implementation uses `PyTorch`, i have provided a TensorFlow version as well in the directoy `tensorflow`.
+
 **Update**: If you want to benchmark stable diffusion on your Intel dGPUs and CPUs, checkout my other [repo](https://github.com/rahulunair/stable_diffusion_xpu) .
 
 [Now](https://blog.rahul.onl/posts/2022-08-12-arc-dgpu-linux.html) that we have our Arc discrete GPU setup on Linux, let's try to run Stable Diffusion model using it. The gpu we are using is an Arc A770 16 GB card.
