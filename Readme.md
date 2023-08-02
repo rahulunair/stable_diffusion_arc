@@ -28,10 +28,10 @@ To use PyTorch on Intel GPUs (xpus), we need to install, the Intel extensions fo
 1. Create a conda environment with Python 3.9 and install both of the wheels.
 
 ```bash
-~ → conda create -n ipex python=3.9 -y
+~ → conda create -n diffusion_xpu python=3.10 -y
 ```
 ```bash
-~ → conda activate ipex
+~ → conda activate diffusion_xpu
 ~ → python -m pip install torch==1.13.0a0+git6c9b55e intel_extension_for_pytorch==1.13.120+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
 ```
 
