@@ -125,20 +125,17 @@ class Img2ImgModel:
         Returns:
             Image.Image: The loaded image.
         """
-        if os.path.exists(path):
-            img = Image.open(path).convert("RGB")
-        else:
-            response = requests.get(url)
-            if response.status_code != 200:
-                raise Exception(
-                    f"Failed to download image. Status code: {response.status_code}"
-                )
-            if not response.headers["content-type"].startswith("image"):
-                raise Exception(
-                    f"URL does not point to an image. Content type: {response.headers['content-type']}"
-                )
-            img = Image.open(BytesIO(response.content)).convert("RGB")
-            img.save(path)
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise Exception(
+                f"Failed to download image. Status code: {response.status_code}"
+            )
+        if not response.headers["content-type"].startswith("image"):
+            raise Exception(
+                f"URL does not point to an image. Content type: {response.headers['content-type']}"
+            )
+        img = Image.open(BytesIO(response.content)).convert("RGB")
+        img.save(path)
         img = img.resize((768, 512))
         return img
 
@@ -233,6 +230,7 @@ if __name__ == "__main__":
     num_images = 0
     model_ids = [
         "runwayml/stable-diffusion-v1-5",
+        "stabilityai/stable-diffusion-2-1",
     ]
     print("Available models are:")
     for i, model_id in enumerate(model_ids):
@@ -262,6 +260,7 @@ if __name__ == "__main__":
         num_images = 2
     image_url = input("Please enter an image URL (or press Enter to use the default): ")
     if not image_url:
+        print("The input is not a valid URL. Using the default URL instead.")
         image_url = "https://user-images.githubusercontent.com/786476/256401499-f010e3f8-6f8d-4e9f-9d1f-178d3571e7b9.png"
     elif not validators.url(image_url):
         print("The input is not a valid URL. Using the default URL instead.")
@@ -288,8 +287,13 @@ if __name__ == "__main__":
         "night",
     ]
 
-    prompt = prompt + " " + " ".join(random.sample(enhancements, 5))
-    print(f"Using enhanced prompt: {prompt}")
+    user_input = input(
+        "Would you like to auto enhance the prompt futher? (yes/no): "
+    ).lower()
+    enhance = user_input in ["yes", "y", "1"]
+    if enhance:
+        prompt = prompt + " " + " ".join(random.sample(enhancements, 5))
+        print(f"Using enhanced prompt: {prompt}")
 
     try:
         start_time = time.time()
