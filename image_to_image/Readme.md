@@ -1,4 +1,4 @@
-# Stable Diffusion Image to Image Generation
+# Stable Diffusion Image to Image Generation on Intel Data Center and Arc GPUs
 
 This repository contains a script for generating images using the Stable Diffusion method. You can customize the model, the base image, the prompt, and the number of images to generate.
 
