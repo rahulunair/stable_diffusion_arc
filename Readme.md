@@ -27,27 +27,37 @@ checkout the wikipedia [entry](https://en.wikipedia.org/wiki/Stable_Diffusion) f
 ### PyTorch
 
 To use PyTorch on Intel GPUs (xpus), we need to install, the Intel extensions for PyTorch or [ipex](https://github.com/intel/intel-extension-for-pytorch).
+## Installation
 
-1. Create a conda environment with Python 3.9 and install both of the wheels.
+1. Clone this repository:
+    ```bash
+    git clone https://github.com/rahulunair/stable_diffusion_arc
+    ```
+2. Change your directory to the cloned repository:
+   
+    ```bash
+    cd stable_diffusion_arc
+    ```
+4. Install the necessary packages:
 
-```bash
-~ → conda create -n diffusion_xpu python=3.10 -y
-```
-```bash
-~ → conda activate diffusion_xpu
-~ → python -m pip install torch==1.13.0a0+git6c9b55e intel_extension_for_pytorch==1.13.120+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
-```
+   Option 1:
+   ```bash
+   conda env create -f environment.yml
+   ```
+   Option 2:
+    ```bash
+    conda create -n diffusion_env python=3.10 -y
+    conda activate diffusion_env
+    pip install decorator
+    # need the oneapi basekit >= 2023.2.0name: diffusion_env2
+    pip install torch==2.0.1a0 torchvision==0.15.2a0 -f https://developer.intel.com/ipex-whl-stable-xpu
+    pip install intel_extension_for_pytorch==2.0.110+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
+    # if using oneapi baekit <= 2023.1.0
+    # pip install  torch==1.13.0a0+git6c9b55e intel_extension_for_pytorch==1.13.120+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
+    pip install acclerate transformers diffusers validators
+    ```
 
-2. Install diffusers library and dependencies
-
-
-```bash
-~ → pip install invisible_watermark transformers accelerate safetensors
-~ →  pip install diffusers --upgrade
-
-```
-
-3. Run stable diffusion
+5. Run stable diffusion
 
 #### Monolithic version
 
