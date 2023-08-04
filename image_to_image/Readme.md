@@ -31,10 +31,10 @@ This repository contains a script for generating images using the Stable Diffusi
     conda activate diffusion_env
     pip install decorator
     # need the oneapi basekit >= 2023.2.0
-    #pip install torch==2.0.1a0 torchvision==0.15.2a0 -f https://developer.intel.com/ipex-whl-stable-xpu
-    #pip install intel_extension_for_pytorch==2.0.110+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
+    pip install torch==2.0.1a0 torchvision==0.15.2a0 -f https://developer.intel.com/ipex-whl-stable-xpu
+    pip install intel_extension_for_pytorch==2.0.110+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
     # if using oneapi baekit <= 2023.1.0
-    pip install  torch==1.13.0a0+git6c9b55e intel_extension_for_pytorch==1.13.120+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
+    # pip install  torch==1.13.0a0+git6c9b55e intel_extension_for_pytorch==1.13.120+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
     pip install acclerate transformers diffusers validators
     ```
 
