@@ -25,12 +25,32 @@ This repository contains a script for generating images using the Stable Diffusi
     cd stable_diffusion_arc
     ```
 4. Install the necessary packages:
-   
+
+   Option 1:
+   ```bash
+   conda env create -f environment.yml
+   ```
+   Option 2:
     ```bash
     conda create -n diffusion_env python=3.10 -y
     conda activate diffusion_env
     pip install decorator
-    # need the oneapi basekit >= 2023.2.0
+    # need the oneapi basekit >= 2023.2.0name: diffusion_env2
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - --extra-index-url https://developer.intel.com/ipex-whl-stable-xpu
+    - decorator
+    - torch==2.0.1a0
+    - torchvision==0.15.2a0
+    - intel_extension_for_pytorch==2.0.110+xpu
+    - accelerate
+    - transformers
+    - diffusers
+    - validators
     pip install torch==2.0.1a0 torchvision==0.15.2a0 -f https://developer.intel.com/ipex-whl-stable-xpu
     pip install intel_extension_for_pytorch==2.0.110+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
     # if using oneapi baekit <= 2023.1.0
