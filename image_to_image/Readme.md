@@ -5,8 +5,8 @@ This repository contains a script for generating images using the Stable Diffusi
 ## Prerequisites
 
 - Python 3.10
-- PyTorch - ``
-- Intel extension for PyTorch - ``
+- PyTorch
+- Intel extension for PyTorch
 - Transformers
 - Accelerate
 - Diffusers
