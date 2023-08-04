@@ -5,8 +5,10 @@ This repository contains a script for generating images using the Stable Diffusi
 ## Prerequisites
 
 - Python 3.10
-- PyTorch
+- PyTorch - ``
+- Intel extension for PyTorch - ``
 - Transformers
+- Accelerate
 - Diffusers
 - Validators
 - Intel Extension for PyTorch
@@ -15,15 +17,19 @@ This repository contains a script for generating images using the Stable Diffusi
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/yourgithubusername/yourrepositoryname.git
+    git clone https://github.com/rahulunair/stable_diffusion_arc
     ```
 2. Change your directory to the cloned repository:
+   
     ```bash
-    cd yourrepositoryname
+    cd stable_diffusion_arc
     ```
-3. Install the necessary packages:
+4. Install the necessary packages:
+   
     ```bash
-    pip install torch==1.10.1 transformers==5.2.2 diffusers==0.0.1 validators==0.18.2 intel-extension-for-pytorch==1.10.0
+    pip install torch==2.0.1a0 torchvision==0.15.2a0 -f https://developer.intel.com/ipex-whl-stable-xpu
+    pip install intel_extension_for_pytorch==2.0.110+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
+    pip install acclerate transformers diffusers validators
     ```
 
 ## Usage
