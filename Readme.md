@@ -89,6 +89,25 @@ Then, in a separate terminal window, run the client script:
 python sd_client.py
 ```
 
+#### UI version
+
+Run the server first:
+
+```bash
+python server.py
+```
+
+Then run gradio based ui web app:
+
+```bash
+python sd_ui.py
+```
+
+You should now be able to interact with a screen like this:
+
+![image](https://github.com/rahulunair/stable_diffusion_arc/assets/786476/341f636d-04de-434f-be28-e5dc84e0dde9)
+
+
 Both versions offer the same functionality from a user's perspective. The monolithic version may be simpler to set up and run, as it doesn't require running two separate scripts. However, the client-server version could offer better performance for large-scale tasks, as it allows the server to handle multiple requests simultaneously.
 
 ### Supported Models:
