@@ -19,6 +19,8 @@ Please follow the [documentation](https://dgpu-docs.intel.com/driver/installatio
 
 ## Stable Diffusion
 
+There are two versions a **Text to image** version and an **image to image** version, `cd` to corresponding directories to get the code for each. For eg:
+
 ### Text-to-Image Model Using Stable Diffusion
 
 Stable Diffusion is a fully open-source (thank you Stability.ai) deep learning text to image and image to image model. For more information on the model,
