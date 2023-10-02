@@ -58,8 +58,19 @@ To use PyTorch on Intel GPUs (xpus), we need to install, the Intel extensions fo
     # pip install  torch==1.13.0a0+git6c9b55e intel_extension_for_pytorch==1.13.120+xpu -f https://developer.intel.com/ipex-whl-stable-xpu
     pip install acclerate transformers diffusers validators
     ```
+    Option 3:
+   If intel AIKit is already installed, then to setup your environment please run:
+   
+   ```bash
+   conda activate pytorch-gpu &&\
+    conda install intelpython3_full &&\
+    conda install -c conda-forge jupyterlab &&\
+    conda install -c conda-forge diffusers transformers &&\
+    conda install accelerate pillow ipywidgets ipython   -c conda-forge &&\
+    pip install  invisible-watermark
+ ```
 
-5. Run stable diffusion
+6. Run stable diffusion
 
 #### Monolithic version
 
