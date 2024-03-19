@@ -105,17 +105,19 @@ class Text2ImgModel:
         """
 
         for attr in dir(pipeline):
-            if isinstance(getattr(pipeline, attr), nn.Module):
-                setattr(
-                    pipeline,
-                    attr,
-                    ipex.optimize(
-                        getattr(pipeline, attr).eval(),
-                        dtype=pipeline.text_encoder.dtype,
-                        inplace=True,
-                    ),
-                )
-        return pipeline
+            try:
+                if isinstance(getattr(pipeline, attr), nn.Module):
+                    setattr(
+                        pipeline,
+                        attr,
+                        ipex.optimize(
+                            getattr(pipeline, attr).eval(),
+                            dtype=pipeline.text_encoder.dtype,
+                            inplace=True,
+                        ),
+                    )
+            except AttributeError:
+                pass
 
     def warmup_model(self):
         """
