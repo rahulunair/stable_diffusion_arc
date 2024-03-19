@@ -95,17 +95,21 @@ class Img2ImgModel:
         Returns:
             StableDiffusionImg2ImgPipeline: The optimized pipeline.
         """
+        
         for attr in dir(pipeline):
-            if isinstance(getattr(pipeline, attr), nn.Module):
-                setattr(
-                    pipeline,
-                    attr,
-                    ipex.optimize(
-                        getattr(pipeline, attr).eval(),
-                        dtype=pipeline.text_encoder.dtype,
-                        inplace=True,
-                    ),
-                )
+            try:
+                if isinstance(getattr(pipeline, attr), nn.Module):
+                    setattr(
+                        pipeline,
+                        attr,
+                        ipex.optimize(
+                            getattr(pipeline, attr).eval(),
+                            dtype=pipeline.text_encoder.dtype,
+                            inplace=True,
+                        ),
+                    )
+            except AttributeError:
+                pass
         return pipeline
 
     def optimize_pipeline(self) -> None:
